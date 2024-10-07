@@ -1,0 +1,52 @@
+body {
+    background-color: #ebecff;
+}
+
+
+div {
+  background-color: #4abf07;
+  background: linear-gradient(90deg, #ebecff, #4abf07);
+  font-family: "Afacad Flux";
+  font-optical-sizing: 600;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+  text-align: center;;
+  margin-top: 5dvh;
+  padding-top: 25px;
+  padding-bottom: 25px;
+
+}
+
+div.contenido {
+    background: linear-gradient(to left, #ebecff, #c7e60e);
+    font-size: 900;
+    text-align: center;
+
+
+}
+
+.flex {
+    background: none;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+     
+}
+
+#redirectButton {
+    background: linear-gradient(to right, #ebecff, #4abf07);
+    
+}
+
+#userInput {
+    background-color: #d9deec;
+    padding: 10px;
+    background: linear-gradient(to right, #ebecff, #4abf07);
+    
+}
+
+#error {
+    color: #ed0d00;
+}

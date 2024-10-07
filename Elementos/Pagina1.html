@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Rojo</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+    <div>
+    <p>
+        Este resultado no es uno positivo, haber llegado a estos datos implica que su suelo tiene 
+        una posible falta de humedad, nutrientes y un sobrenivel de moléculas dañinas o invasivas 
+        para su suelo.
+    </p>
+    <p>
+        Es posible que usted tenga un suelo de tipo arcilloso o arenoso en cuanto a texturas, y que por dentro sea
+        salino o pedregoso. Pero, ¿Cómo puede identificar cuál es? A través de sus apariencias exteriores podemos
+        llegar a conclusiones sobre cuál es exactamente nuestro tipo de suelo. Un suelo arcilloso se caracteriza por un
+        color marrón oscuro o gris con una textura fina y densa, la cual lo hace pegajoso al tacto cuando está húmedo y 
+        esto es debido a su mal drenaje, lo que genera una alta retención de agua, provocando charcos por toda la tierra,
+        los cuales, una vez secos, tienden a formar costras duras que posteriormente se erosionan con el viento. Podemos agregar
+        también que gracias a estas particularidades estos suelos tienen poca actividad biológica.
+    </p>
+    <p>
+        Por otro lado, si sentimos que nuestro suelo no coincide tanto con la anterior descripción, podríamos guiarnos por un 
+        tipo de suelo arenoso, el cual se describe como un suelo con un color generalmente beige o marrón. Sus granos son gruesos
+        y sueltos, generando una textura granulada y áspera al tacto. Este suelo usualmente suele ser fácil de trabajar gracias a su
+        estructura suelta y aireada, aunque esto también puede ser perjudicial debido a que esto mismo facilita su erosión. Por su parte 
+        biológica podemos encontrar una baja biodiversidad, a excepción de aquellas especies que habitan lugares secos.
+    </p>
+</div>
+    <h2>¿Qué medidas se deben tomar en base a estos resultados?</h2>
+    <div>
+    <p>
+        Sabemos que ambos suelos se caracterizan por un nivel desequilibrado entre agua y nutrientes, por lo que se recomienda en casos
+        de suelo arcilloso agregar materia orgánica como el compost o residuos de cultivos para mejorar el drenaje y en caso de el suelo
+        arenoso se recomienda también el agregado de compost o mantillo para mejorar su capacidad de retención de agua. Luego, por la parte
+        de nutrientes, sabemos que gracias a la excesiva retención de agua del suelo arcilloso tiene una mala compactación, estorbando
+        el desarrollo de vida debajo de él. Por lo que se recomienda en estos casos agregar materia orgánica, lo cual mejorará la 
+        estructura y aireación. Por otro lado, en los suelos arenosos se recomienda el agregado de mulch (paja, corteza de árbol) y la 
+        plantación de cultivos con raíces profundas, lo cual hará una mejora en la corteza, estructura y retención de nutrientes del suelo.
+    </p>
+</div>
+    
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+  
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+
+</body>
+</html>

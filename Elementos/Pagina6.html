@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Verde</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+    <div>
+    <p>
+        Sus resultados son buenos, haber llegado a estos datos implica que su suelo tiene buena compilacion de elementos
+        y un exelente
+    </p>
+    <p>
+        Tener estos resultados en este analisis indica un buen metodo de cuidado y de utilizacion de recursos. Al llegar a esto
+        se recomienda mantener el cuidado ya aplicado al suelo, ya que este expresa buenas respuestas y eficiencia, aun que si 
+        necesita una guia para el cuidado se recomienda el estudio constante de el suelo para asi poder hacerle un seguimiento mas
+        preciso y de este modo seguir mejorando la calidad y fertilidad de la tierra.
+    </p>
+    <p>
+        Nuestras recomendaciones ante estos tipos de suelo es continuar con los metodos ya aplicados al cuidado de este, 
+        promover la generacion de vida mediante materia organica y enmiendas de calidad, ademas de la rotacion de cultivos
+        para aprovechar todos los nutrientes que aporta la tierra y no desgastarlos rapidamente.
+    </p>
+</div>
+
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+</body>
+</html>

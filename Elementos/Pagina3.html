@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Naramarillo</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+   <div>
+    <p>
+        Sus resultados son algo buenos, aun que se deberian mejorar muchos aspectos para concluir en un buen suelo,
+        haber llegado a estos datos implica que su suelo tiene una posible falta de humedad, nutrientes y un nivel 
+        un poco alto de moléculas dañinas o invasivas para su suelo.
+    </p>
+    <p>
+        Como ya tenemos nuestros analisis de datos completos ahora debemos ejecutar el primer paso para la mejora de la
+        calidad de nuestro suelo, que es identificar especificamente cual es nuestro tipo de suelo, lo cual se hace facilmente
+        solo con mirar las caracteristicas exteriores de nustra tierra. Un suelo con baja materia organica se distingue por
+        un aspecto grisaseo o amarillento, con una textura arenosa o arcillosa (segun su composicion) y una textura menos agregada.
+        Por otro lado un suelo con leve contaminacion presenta decoloraciones en algunos sectores producidas por la existencia de 
+        bacterias, ademas suele compactarse en algunas zonas o afecta su porosidad y por otro lado, su ectructura es algo que usualmente
+        no cambia en estos tipos de suelo, mantenienodse en un estado neutral
+
+    </p>
+</div>
+    <h2>¿Qué medidas se deben tomar en base a estos resultados?</h2>
+    <div>
+    <p>
+        Para trabajar en un suelo con baja materia organica lo primero que se debe hacer es orteger la superficie de el 
+        suelos para que este no obtenga bacterias que puedan estorbar en nuestro objetivo, el cual para llevar a cabo se plantan
+        cultivos protectores para la superficie, agregar compost, estiércol y mulching para promover el desarrollo de vida,
+        la rotacion de cultivos es un punto sumamente importante en este tipo de suelo ya que debido a la falta de materia organica
+        los nutrientes pueden acabarse rapidamente y esto afectaria al crecimiento del cultivo, ademas que este suelo necesita de un 
+        analisis constante para saber como avanza su composicion. Por el otro lado, cuando hablamos de suelos levemente contaminados
+        debemos trabajar con cuidado ya que no se recomienda agregar ningun tipo de quimico, debido a que eso puede ser la principal 
+        razon de la contaminacion, y al igual que en los suelos con baja materia organica se recomienda la plantacion de cultivos 
+        protectores ademas de algunos ejemplares que puedan producir remedios organicos, la rotacion del cultivo y el segumiento
+        progresivo de el suelo
+    </p>
+    </div>
+
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+</body>
+</html>

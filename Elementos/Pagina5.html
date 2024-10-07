@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Amariverde</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+    <div>
+    <p>
+        Sus resultados son buenos, haber llegado a estos datos implica que su suelo tiene buena compilacion de elementos
+        mas alla de algunas problematicas que puedan presentarse.
+    </p>
+    <p>
+        Tener este resultado en el analisis implica poder tener una gran variedad de suelos, entre los cuales se pueden hallar:
+        los suelos franco, franco arenoso y carcareos, los cuales comparten caracteristicas como la textura equilibrada y una 
+        estructura facil de manejar, dentro de las propiedades del este suelo podemos encontrar una buena rendicion de nutrientes,
+        un buen drenaje y una resistencia media a las erosiones. Luego tenemos los suelos luviales que se caracterizan por ser 
+        tierras fertiles, con buena estructura y drenancia, aun que este puede fallar lo que hace que esta tierra corra riesgos de 
+        inundaciones, ademas que algunas de sus zonas pueden contener altos niveles de sodio. Por ultimo tenemos a los suelos peaty
+        y limosos, los cuales se caracterizan por una buena estructura, fertilidad y materia organica, aun que en el caso de los
+        suelos peaty hay algunas zonas con mayores cantidades de sodio donde la humedad baja y hace que su materia organica disminuya.
+    </p>
+</div>
+    <h2>¿Qué medidas se deben tomar en base a estos resultados?</h2>
+   <div>
+    <p>
+        Aun que los analisis expresaron resultados muy positivos y se recomienda seguir con los cuidados ya aplicados por que indican
+        un buen cuidado de suelo, las recomendaciones Para trabajar con suelos francos, franco-arenosos y calcáreos son: evitar la compactación,
+        incorporar materia orgánica como compost o estiércol, mejora la retención de nutrientes y humedad, mientras que el uso de mulch ayuda a 
+        conservar la humedad y prevenir la erosión. Es esencial realizar análisis de suelo periódicos para ajustar el pH y equilibrar nutrientes,
+        especialmente en suelos calcáreos donde el calcio puede estar en exceso y el hierro puede ser deficiente. Implementar rotación de cultivos y 
+        cultivos de cobertura diversifica los nutrientes y protege la estructura del suelo. Para trabajar con suelos luviales se debe 
+        asegurarse de que el drenaje sea adecuado para prevenir el encharcamiento. Implementar rotación de cultivos ayuda a evitar el agotamiento de
+        nutrientes y a reducir plagas, mientras que los cultivos de cobertura protegen el suelo y previenen la erosión. Mantener un control regular de
+        las malezas es clave para minimizar la competencia por recursos. Además, se recomienda realizar análisis de suelo periódicos para ajustar las 
+        prácticas de manejo y aplicar fertilizantes de acuerdo con los resultados del análisis, evitando el uso excesivo que pueda afectar la calidad del agua.
+        Por ultimo, es los suelos limosos y peaty se recomienda La incorporación de materia orgánica, como compost o estiércol, mejora la retención de agua y nutrientes,
+        además de aumentar la actividad microbiana. En suelos limosos, es importante monitorear la humedad para evitar la sobreirrigación, mientras que en suelos peaty, 
+        se debe asegurar un buen drenaje para prevenir condiciones anóxicas. También es recomendable implementar rotación de cultivos para diversificar nutrientes y reducir 
+        plagas, así como mantener un control regular de las malezas. En suelos peaty, es crucial ajustar el pH según sea necesario y optar por cultivos que se adapten a 
+        condiciones húmedas y ácidas.
+    </p>
+</div>
+    
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Amarillo</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+   <div>
+    <p>
+        Sus resultados son bastante buenos, aun que se deberian mejorar algunos aspectos para concluir en un buen suelo,
+        haber llegado a estos datos implica que su suelo tiene buena compilacion de elementos mas alla de algunas problematicas
+        que puedan presentarse.
+    </p>
+    <p>
+        Conociendo ya nuestro suelo podemos concluir en 3 tipos de suelo posibles para este analisis, un suelo franco arcilloso,
+        un calcare medianamente fertil y un peaty con alta humedad.Un suelo franco arcilloso hablamos de un suelo rico en nutrientes,
+        humedad y versatilidad, aun que tambien es un seulo que se compacta facilmente y ademas si no obtiene suficiente arcilla 
+        su drenaje se vuelve deficiente,luego tenemos los suelos calceres medianamente fertiles, que tienen un buen manejo de la 
+        fertilidad, ademas de un buen drenaje, pero son problematicos para algunos cultivos debido a su porcentaje de PH y ademas 
+        en algunos casos necesita de enmiendas para optimizar su fertlidad, y por ultimo tenemos los suelos peaty con alta humedad
+        que tienen altos niveles de materia organica y buen retenimientto de agua, pero a su vez puede ser acido, dificil de manejar
+        y ademas tiene riesgos de mal drenaje.
+    </p>
+</div>
+    <h2>¿Qué medidas se deben tomar en base a estos resultados?</h2>
+    <div>
+    <p>
+        Luego de entender los tipos de suelos que derivan de este analisis debemos estudiar las caracteristicas que posee nuestro 
+        suelo para concluir en cual es el tipo de tierra que tenemos y como debemos trabajarla. Para trabajar con suelos franco
+        arcillosos se debe agregar materia organica, plantar cultivos de cobertura para la superficie y cuidar el drenaje, luego, 
+        si nuestro tipo de suelo es un calcer medianamente fertil se recomienda hacer analisis para conocer sobre los nutrientes
+        que tiene o carece nuestro suelo, el uso de enmiendas, la rotacion del cultivo y la correcta eleccion de cultivo. Por ultimo,
+        si nuestro suelo es de clase peaty con alta humedad se debe tener un drenaje adecuado, un control de la materia organica, el 
+        saber elegir por cultivos resistentes ante la gran cantidad de humedad de estos suelos y se deben llevar a cabo practicas
+        de conservacion de carbono
+    </p>
+</div>
+
+    
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+</body>
+</html>

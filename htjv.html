@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.A.S.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <h1>¿Buscas una solucion a los problematicas de tu suelo y no sabes por donde comenzar?</h1>
+    </div>
+    <div class="contenido">
+        <h2>¡Bienvenido al P.A.S.!</h2>
+        <h3>Que es el P.A.S. y como funciona</h3>
+        <p>
+            El P.A.S. es un prototipo que realiza un recopilacion de datos sobre el suelo desedado
+            permitiendo un analisis sobre las condiciones de este mismo y como se podrian los
+            factores debiles del la tierra
+        </p>
+        <h3>¿Porqué elegir el P.A.S.?</h3>
+        <p>
+            Este prototipo genera un escaneo completo sobre de los datos mas importantes del suelo, permitiendo una
+            mejora en la toma de decisiones acerca de como y con que se debe trabajar sobre el suelo. Ademas analiza
+            problematicas y propone solucionas a estas mismas, facilitando la mejora de la calidad de la tierra.
+        </p>
+    </div>
+    <div class="flex">
+        <input type="text" id="userInput" placeholder="Ingresa tu codigo" autocomplete="off" />
+        <button id="redirectButton">siguiente</button>
+    </div>
+    <span id="error" style="display:none;">El código no es válido</span>
+
+    <script>
+        document.getElementById("redirectButton").onclick = function () {
+            let inputValue = document.getElementById("userInput").value.toUpperCase();
+
+            if (inputValue === 'FF0000') {
+                window.location.pathname = "/Elementos/Pagina1.html";
+            } else if (inputValue === 'CC3300') {
+                window.location.pathname = "/Elementos/Pagina2.html";
+            } else if (inputValue === '996600') {
+                window.location.pathname = "/Elementos/Pagina3.html";
+            } else if (inputValue === '669900') {
+                window.location.pathname = "/Elementos/Pagina4.html";
+            } else if (inputValue === '33CC00') {
+                window.location.pathname = "/Elementos/Pagina5.html";
+            } else if (inputValue === '00FF00') {
+                window.location.pathname = "/Elementos/Pagina6.html";
+            } else {
+                document.getElementById("error").style.display = "block";
+            }
+        };
+    </script>
+</body>
+
+</html>

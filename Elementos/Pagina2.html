@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Narojo</title>
+    <link rel="stylesheet" href="styleExtra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@500..1000&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1> Análisis general sobre su suelo</h1>
+    <h2>Viajando bajo la superficie de su suelo hemos encontrado:</h2>
+    <div>
+    <p>
+        Este resultado no es nada bueno pero aun puedes lograr que este lejos de estar en un punto extremo,
+        haber llegado a estos datos implica que su suelo tiene una posible falta de humedad, nutrientes y un 
+        sobrenivel de moléculas dañinas o invasivas para su suelo.
+    </p>
+    <p>
+        Entre las posibilidades de suelo para estos resultados tenemos suelos erosionados,hidromorficos, compactados
+        o acidos. Para identificar con mayor exactitud cual es nuestro suelo, podemos hacer una primera instancia en 
+        la cual se analiza las caracteristicas exteriores del suelo, dentro de los suelos hidromorficos o compactados
+        podemos encontrar superficies llenas de charcos o extremadamente humedas, aun que podemos excepcionar  los suelos
+        compactados por un lado, ya que si se han producido fuertes compactaciones recientes es muy probable que el exceso de
+        agua sea producido por esto, lo que haria que sea mas facil de recuperar, por otro lado tenemos los suelos erosinados
+        que pueden ser reconocidos facilmente gracias a que tienen una perdida casi completa de su superficie debido a la falta 
+        de humedad y las erosiones 
+    </p>
+    </div>
+    <h2>¿Qué medidas se deben tomar en base a estos resultados?</h2>
+    <div>   
+    <p>
+        Siguiendo las problematicas que presenta este resultado tenemos que tener en cuenta para su solucion entonces:
+        cual es exactamente el tipo de suelo que nosotros tenemos y a raiz de eso aplicar las soluciones especificas para mejorar
+        nuestro suelo. En caso de tener un suelo hidromorfico deberiamos contemplar las situaciones ambientales en las cuales 
+        estamos promoviendo el desarrolo de nuestro suelo, usualmente si nos encontramos en ambientes humedos se recomienda el 
+        desuso de maquinaria pesada y en poco riego de el suelo, ya que por un lado esto puede hacer que nuestro suelo se compacte 
+        y pierda habilidades de drenaje, y por el otro estariamos sobre cargando nuestro suelo con algo que ya no necesita. Si nuestro tipo
+        de suelo es en cambio un suelo erosioando, se deberian tomar medidas como la plantacion de cultivos de cobertura que protejan
+        la superficie del suelo y aplicar algun sistema de riego constante que ayude con la baja humedad de suelo, ademas de complementar
+        tambien con compost para promover el desarrollo de vida    
+    </p>
+    <p>
+        Se puede presentar en estos casos ademas problematicas de el interior de el suelo como la acidez o la falta de nutrientes.
+        Esto se puede dar en gran parte por el desequilibrio del PH y la falta o exceso de agua en el suelo, para esto se debe identificar
+        correctamente la problematica y con eso mejorar la calidad de vida en el suelo.
+    </p>
+</div>
+    <input type="text" id="location" placeholder="Ingrese la ubicación">
+    <button id="getWeatherButton">Obtener clima</button>
+    <div id="weatherData"></div>
+
+    <script>
+        const apiKey = '7184453f368fc17b34c84c46e7d248ab'; 
+
+        document.getElementById("getWeatherButton").onclick = function() {
+            const location = document.getElementById("location").value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=es&units=metric`;
+
+            fetch(apiUrl)
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('No se pudo obtener el clima para esa ubicación.');
+                   }
+                   return response.json();
+              })
+              .then(data => {
+                  displayWeather(data);
+              })
+              .catch(error => {
+                  document.getElementById("weatherData").innerHTML = `<p>${error.message}</p>`;
+              });
+        };
+
+        function displayWeather(data) {
+            const { name, main, weather } = data;
+            const weatherDescription = weather[0].description;
+            const temperature = main.temp;
+
+            document.getElementById("weatherData").innerHTML = `
+                <h2>Clima en ${name}</h2>
+                <p>Temperatura: ${temperature}°C</p>
+                <p>Descripción: ${weatherDescription}</p>
+            `;
+        }
+    </script>
+    <a href ="https://colab.research.google.com/drive/1kXOTrD8rlN5qFE0YZnff98Xqu2rCkd_s#scrollTo=iJxGeZvY78FJ">¿Quieres obtener informacion a cerca de las sequias? <span>clickea aquí</span></a>
+</body>
+</html>

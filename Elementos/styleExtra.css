@@ -1,0 +1,17 @@
+h1, h2 {
+  font-family: "Afacad Flux";
+  font-optical-sizing: 600;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+    background: linear-gradient(to left, #ebecff, #4abf07);
+}
+
+div {
+    background: linear-gradient(to right, transparent, #ebecff);
+}
+
+#location, #getWeatherButton {
+   background: linear-gradient(to right, transparent, #ebecff, #4abf07);
+}
